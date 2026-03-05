@@ -2,10 +2,13 @@
 <!DOCTYPE html>
 
 <html lang="en">
-<head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>ChooseYourGameMode – Kiss Condoms</title>
+<head> 
+   <!-- Leaflet (OpenStreetMap) -->
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&amp;family=DM+Sans:wght@300;400;500;600;700&amp;family=Dancing+Script:wght@600;700&amp;display=swap" rel="stylesheet"/>
 <style>
@@ -1761,19 +1764,135 @@ box-shadow:0 20px 60px rgba(0,0,0,0.4);
 <div class="section-tag">Find Support</div>
 <h1 class="section-h">Your Health, <span class="r">Supported</span></h1>
 <p class="section-sub">You are not alone. Connect with trained healthcare providers and sexual health services across Zambia.</p>
+<!-- ✅ QUICK ACTION BUTTON (Optional Improvement) -->
+<div class="fade-up" style="text-align:center;margin:18px auto 26px;max-width:980px;">
+  <a class="btn-primary"
+     href="https://www.google.com/maps/search/sexual+health+clinic+near+me"
+     target="_blank" rel="noopener">
+    Find a Sexual Health Clinic Near You
+  </a>
+  <p style="margin-top:10px;color:rgba(255,255,255,.65);font-size:.9rem;">
+    Tip: allow location to automatically show clinics closest to you.
+  </p>
 </div>
+
+<!-- ✅ LIVE MAP + NEAREST RESULTS -->
+<div class="fade-up" style="max-width:980px;margin:0 auto 34px;">
+  <div class="contact-card" style="padding:22px;">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+      <div>
+        <h2 style="margin:0;font-family:'Playfair Display',serif;">Nearest Clinics & Testing</h2>
+        <p style="margin:8px 0 0;color:rgba(255,255,255,.72);max-width:70ch;">
+          This map uses your GPS location (if allowed) to find nearby clinics/hospitals and show directions.
+        </p>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <button class="btn-outline" type="button" id="btnLocate">Use my location</button>
+        <button class="btn-outline" type="button" id="btnRetry">Refresh results</button>
+      </div>
+    </div>
+
+    <!-- Map -->
+    <div id="clinicMap" style="height:420px;border-radius:16px;overflow:hidden;margin-top:16px;border:1px solid rgba(255,255,255,.08);"></div>
+
+    <!-- Status + nearest list -->
+    <p id="mapStatus" style="margin:12px 0 0;color:rgba(255,255,255,.7);font-size:.92rem;"></p>
+
+    <div id="nearestList" style="margin-top:14px;display:grid;gap:10px;"></div>
+
+    <div style="margin-top:12px;color:rgba(255,255,255,.55);font-size:.82rem;line-height:1.5;">
+      Data source: OpenStreetMap. Results depend on map coverage in the area.
+    </div>
+  </div>
+</div>
+
+<!-- ✅ YOUR SUPPORT CARDS (Now with REAL LINKS) -->
 <div class="support-grid fade-up">
-<div class="support-card"><div class="sup-ico">🏥</div><div class="sup-title">Government Health Centres</div><div class="sup-text">Free or subsidised sexual and reproductive health services across Zambia — including contraception, STI testing, and HIV counselling.</div><a class="sup-link" href="#">Find your nearest clinic →</a></div>
-<div class="support-card"><div class="sup-ico">🤝</div><div class="sup-title">Community Health Workers</div><div class="sup-text">Trained CHWs available in most communities to provide guidance, distribute condoms, and refer clients to appropriate health services confidentially.</div><a class="sup-link" href="#">Connect with a CHW →</a></div>
-<div class="support-card"><div class="sup-ico">💬</div><div class="sup-title">Youth-Friendly Services</div><div class="sup-text">Specialised youth-friendly clinics across Zambia offering sexual health education, contraception, and mental health support in a safe, confidential environment.</div><a class="sup-link" href="#">Youth services near you →</a></div>
-<div class="support-card"><div class="sup-ico">📱</div><div class="sup-title">PPAZ Clinics</div><div class="sup-text">Planned Parenthood Association of Zambia provides comprehensive reproductive health services including family planning counselling and STI services.</div><a class="sup-link" href="#">Find PPAZ clinic →</a></div>
-<div class="support-card"><div class="sup-ico">🧪</div><div class="sup-title">HIV &amp; STI Testing</div><div class="sup-text">Voluntary counselling and testing (VCT) at health centres, mobile clinics, and community events. Know your status — regular testing saves lives.</div><a class="sup-link" href="#">Find testing services →</a></div>
-<div class="support-card"><div class="sup-ico">🆘</div><div class="sup-title">Emergency Support</div><div class="sup-text">For sexual assault or contraceptive emergency, contact your nearest emergency health service. Time-sensitive PEP and EC services are available at hospitals.</div><a class="sup-link" href="#">Emergency resources →</a></div>
+
+  <div class="support-card">
+    <div class="sup-ico">🏥</div>
+    <div class="sup-title">Government Health Centres</div>
+    <div class="sup-text">
+      Free or subsidised sexual and reproductive health services across Zambia — including contraception, STI testing, and HIV counselling.
+    </div>
+    <a class="sup-link"
+       href="https://www.google.com/maps/search/health+centre+near+me"
+       target="_blank" rel="noopener">
+      Find your nearest clinic →
+    </a>
+  </div>
+
+  <div class="support-card">
+    <div class="sup-ico">🤝</div>
+    <div class="sup-title">Community Health Workers</div>
+    <div class="sup-text">
+      Trained CHWs available in most communities to provide guidance, distribute condoms, and refer clients to appropriate health services confidentially.
+    </div>
+    <a class="sup-link"
+       href="https://www.moh.gov.zm/"
+       target="_blank" rel="noopener">
+      Connect with a CHW →
+    </a>
+  </div>
+
+  <div class="support-card">
+    <div class="sup-ico">💬</div>
+    <div class="sup-title">Youth-Friendly Services</div>
+    <div class="sup-text">
+      Specialised youth-friendly clinics across Zambia offering sexual health education, contraception, and mental health support in a safe, confidential environment.
+    </div>
+    <a class="sup-link"
+       href="https://www.google.com/maps/search/youth+friendly+health+services+near+me"
+       target="_blank" rel="noopener">
+      Youth services near you →
+    </a>
+  </div>
+
+  <div class="support-card">
+    <div class="sup-ico">📱</div>
+    <div class="sup-title">PPAZ Clinics</div>
+    <div class="sup-text">
+      Planned Parenthood Association of Zambia provides comprehensive reproductive health services including family planning counselling and STI services.
+    </div>
+    <a class="sup-link"
+       href="https://www.ppaz.org.zm/"
+       target="_blank" rel="noopener">
+      Find PPAZ clinic →
+    </a>
+  </div>
+
+  <div class="support-card">
+    <div class="sup-ico">🧪</div>
+    <div class="sup-title">HIV &amp; STI Testing</div>
+    <div class="sup-text">
+      Voluntary counselling and testing (VCT) at health centres, mobile clinics, and community events. Know your status — regular testing saves lives.
+    </div>
+    <a class="sup-link"
+       href="https://www.google.com/maps/search/HIV+testing+near+me"
+       target="_blank" rel="noopener">
+      Find testing services →
+    </a>
+  </div>
+
+  <div class="support-card">
+    <div class="sup-ico">🆘</div>
+    <div class="sup-title">Emergency Support</div>
+    <div class="sup-text">
+      For sexual assault or contraceptive emergency, contact your nearest emergency health service. Time-sensitive PEP and EC services are available at hospitals.
+    </div>
+    <a class="sup-link"
+       href="https://www.google.com/maps/search/hospital+emergency+near+me"
+       target="_blank" rel="noopener">
+      Emergency resources →
+    </a>
+  </div>
+
+</div>
 </div><div class="contact-wrap section-alt fade-up">
 <div class="contact-card">
 <div class="contact-head">
 <h2 class="contact-title">Send a confidential message</h2>
-<p class="contact-sub">We’ll reply to <b>uchichinyama@gmail.com</b>. This form is for general support and questions (not emergencies).</p>
+<p class="contact-sub">We’ll reply to <b>info@xplodemedia.com</b>. This form is for general support and questions (not emergencies).</p>
 </div>
 <form autocomplete="on" class="contact-form" id="contactForm">
 <div class="contact-grid">
@@ -2017,6 +2136,221 @@ observeAll();
       setStatus((err && err.message) ? err.message : 'Something went wrong.', 'err');
     }
   });
+})();
+</script>  
+   <script>
+/* =========================================================
+   LIVE ZAMBIA CLINIC MAP (GPS) — NO API KEY REQUIRED
+   Uses OpenStreetMap + Overpass API
+========================================================= */
+(function(){
+  const mapEl = document.getElementById('clinicMap');
+  const statusEl = document.getElementById('mapStatus');
+  const listEl = document.getElementById('nearestList');
+  const btnLocate = document.getElementById('btnLocate');
+  const btnRetry = document.getElementById('btnRetry');
+
+  if(!mapEl || !statusEl || !listEl) return;
+
+  // Default: Lusaka (fallback if user denies location)
+  const DEFAULT_CENTER = { lat: -15.3875, lng: 28.3228 };
+
+  let map, userMarker, resultsLayer;
+  let lastCenter = { ...DEFAULT_CENTER };
+
+  function setStatus(msg){
+    statusEl.textContent = msg || '';
+  }
+
+  function haversineKm(a, b){
+    const R = 6371;
+    const dLat = (b.lat - a.lat) * Math.PI/180;
+    const dLng = (b.lng - a.lng) * Math.PI/180;
+    const lat1 = a.lat * Math.PI/180;
+    const lat2 = b.lat * Math.PI/180;
+    const x = Math.sin(dLat/2)**2 +
+              Math.sin(dLng/2)**2 * Math.cos(lat1) * Math.cos(lat2);
+    return 2 * R * Math.asin(Math.sqrt(x));
+  }
+
+  function initMap(center){
+    if(map) return;
+
+    map = L.map('clinicMap', { scrollWheelZoom: false }).setView([center.lat, center.lng], 13);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    resultsLayer = L.layerGroup().addTo(map);
+  }
+
+  function setUserLocation(center){
+    initMap(center);
+    lastCenter = { ...center };
+
+    if(userMarker){
+      userMarker.setLatLng([center.lat, center.lng]);
+    } else {
+      userMarker = L.marker([center.lat, center.lng], { title: 'You are here' }).addTo(map);
+      userMarker.bindPopup('📍 You are here').openPopup();
+    }
+
+    map.setView([center.lat, center.lng], 13);
+  }
+
+  async function fetchClinics(center){
+    setStatus('Searching clinics near you…');
+    listEl.innerHTML = '';
+    resultsLayer.clearLayers();
+
+    // Search radius: 8km (adjust if you want: 5000, 10000, 15000)
+    const radiusMeters = 8000;
+
+    // Overpass query: clinics/hospitals/doctors/pharmacy
+    const query = `
+      [out:json][timeout:25];
+      (
+        node(around:${radiusMeters},${center.lat},${center.lng})["amenity"="clinic"];
+        node(around:${radiusMeters},${center.lat},${center.lng})["amenity"="hospital"];
+        node(around:${radiusMeters},${center.lat},${center.lng})["amenity"="doctors"];
+        node(around:${radiusMeters},${center.lat},${center.lng})["amenity"="pharmacy"];
+      );
+      out center;
+    `;
+
+    const url = 'https://overpass-api.de/api/interpreter';
+
+    let data;
+    try{
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
+        body: query
+      });
+      if(!res.ok) throw new Error('Overpass request failed');
+      data = await res.json();
+    }catch(err){
+      console.error(err);
+      setStatus('Could not load map results (network or Overpass busy). Click “Refresh results” or try again later.');
+      return;
+    }
+
+    const elements = Array.isArray(data?.elements) ? data.elements : [];
+    if(elements.length === 0){
+      setStatus('No clinics found in this radius. Try “Refresh results” or zoom out / move slightly.');
+      return;
+    }
+
+    // Normalize + compute distance
+    const items = elements
+      .map(el => {
+        const name = el.tags?.name || el.tags?.operator || el.tags?.brand || 'Health facility';
+        const amenity = el.tags?.amenity || 'facility';
+        const lat = el.lat;
+        const lng = el.lon;
+        const dist = haversineKm(center, { lat, lng });
+        const address =
+          [el.tags?.['addr:street'], el.tags?.['addr:suburb'], el.tags?.['addr:city']]
+          .filter(Boolean).join(', ');
+
+        return { name, amenity, lat, lng, dist, address };
+      })
+      .sort((a,b) => a.dist - b.dist)
+      .slice(0, 12); // show top 12
+
+    // Markers + list
+    items.forEach((it, idx) => {
+      const marker = L.marker([it.lat, it.lng]).addTo(resultsLayer);
+      const gmaps = `https://www.google.com/maps/dir/?api=1&destination=${it.lat},${it.lng}`;
+      const label = `${idx+1}. ${it.name}`;
+
+      marker.bindPopup(`
+        <div style="font-family:system-ui;min-width:220px">
+          <b>${it.name}</b><br/>
+          <span>${it.amenity}</span><br/>
+          <span>${it.dist.toFixed(2)} km away</span><br/>
+          ${it.address ? `<span>${it.address}</span><br/>` : ''}
+          <a href="${gmaps}" target="_blank" rel="noopener">Directions</a>
+        </div>
+      `);
+
+      const card = document.createElement('div');
+      card.style.cssText = `
+        background:rgba(7,14,28,.55);
+        border:1px solid rgba(255,255,255,.08);
+        border-radius:14px;
+        padding:12px 14px;
+        display:flex;
+        align-items:flex-start;
+        justify-content:space-between;
+        gap:12px;
+      `;
+
+      const left = document.createElement('div');
+      left.innerHTML = `
+        <div style="font-weight:800;color:#fff;">${label}</div>
+        <div style="color:rgba(255,255,255,.68);font-size:.88rem;margin-top:2px;">
+          ${it.amenity} • ${it.dist.toFixed(2)} km
+        </div>
+        ${it.address ? `<div style="color:rgba(255,255,255,.55);font-size:.82rem;margin-top:4px;">${it.address}</div>` : ''}
+      `;
+
+      const right = document.createElement('div');
+      right.innerHTML = `
+        <a class="btn-outline" style="padding:10px 14px;border-radius:12px;display:inline-flex;align-items:center;gap:8px;"
+           href="${gmaps}" target="_blank" rel="noopener">
+          Directions →
+        </a>
+      `;
+
+      card.addEventListener('click', () => {
+        map.setView([it.lat, it.lng], 15, { animate: true });
+        marker.openPopup();
+      });
+
+      card.appendChild(left);
+      card.appendChild(right);
+      listEl.appendChild(card);
+    });
+
+    setStatus(`Showing nearest health facilities within ~${(radiusMeters/1000).toFixed(0)} km.`);
+  }
+
+  function useGeolocation(){
+    setStatus('Requesting your location…');
+    if(!navigator.geolocation){
+      setStatus('Geolocation not supported on this browser. Showing Lusaka by default.');
+      setUserLocation(DEFAULT_CENTER);
+      fetchClinics(DEFAULT_CENTER);
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const center = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+        setUserLocation(center);
+        fetchClinics(center);
+      },
+      (err) => {
+        console.warn(err);
+        setStatus('Location denied/unavailable. Showing Lusaka by default. Click “Use my location” to try again.');
+        setUserLocation(DEFAULT_CENTER);
+        fetchClinics(DEFAULT_CENTER);
+      },
+      { enableHighAccuracy: true, timeout: 12000, maximumAge: 60000 }
+    );
+  }
+
+  // Buttons
+  if(btnLocate) btnLocate.addEventListener('click', useGeolocation);
+  if(btnRetry) btnRetry.addEventListener('click', () => fetchClinics(lastCenter));
+
+  // Boot (default first)
+  setUserLocation(DEFAULT_CENTER);
+  fetchClinics(DEFAULT_CENTER);
+
 })();
 </script>
 </body>
